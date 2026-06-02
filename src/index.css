@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: #02030a;
+}
+
+/* ---------- Star field ---------- */
+@keyframes twinkle {
+  0%, 100% { opacity: var(--base-opacity, 0.3); transform: scale(var(--base-scale, 1)); }
+  50%      { opacity: 1;                  transform: scale(calc(var(--base-scale, 1) * 1.6)); }
+}
+.star {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(circle, #ffffff 0%, #ffffff 60%, rgba(255,255,255,0) 100%);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.9), 0 0 12px rgba(255, 255, 255, 0.4);
+  animation: twinkle var(--dur, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  pointer-events: none;
+}
+
+/* Big colorful stars (with cross flare) */
+.star-big {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  background: #fff;
+  box-shadow:
+    0 0 6px 2px rgba(255, 255, 255, 0.9),
+    0 0 14px 4px rgba(186, 230, 253, 0.6);
+  animation: twinkle var(--dur, 4s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  pointer-events: none;
+}
+.star-big::before, .star-big::after {
+  content: "";
+  position: absolute;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+  box-shadow: 0 0 8px rgba(186, 230, 253, 0.7);
+}
+.star-big::before {
+  top: 50%; left: 50%;
+  width: 28px; height: 1px;
+  transform: translate(-50%, -50%);
+}
+.star-big::after {
+  top: 50%; left: 50%;
+  width: 1px; height: 28px;
+  transform: translate(-50%, -50%);
+}
+
+/* ---------- Shooting star ---------- */
+@keyframes shoot {
+  0%   { transform: translate3d(0,0,0) rotate(35deg); opacity: 0; }
+  5%   { opacity: 1; }
+  60%  { opacity: 1; }
+  100% { transform: translate3d(-700px, 500px, 0) rotate(35deg); opacity: 0; }
+}
+.shooting-star {
+  position: absolute;
+  width: 120px;
+  height: 1.5px;
+  background: linear-gradient(90deg, rgba(255,255,255,0), #ffffff 60%, rgba(186,230,253,1));
+  border-radius: 9999px;
+  filter: drop-shadow(0 0 6px rgba(186, 230, 253, 0.9));
+  animation: shoot 6s linear infinite;
+  animation-delay: var(--delay, 0s);
+  opacity: 0;
+}
+
+/* ---------- Moon glow pulse ---------- */
+@keyframes moonGlow {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 0.75; transform: scale(1.05); }
+}
+.moon-glow {
+  animation: moonGlow 6s ease-in-out infinite;
+}
+
+/* ---------- Firefly drift ---------- */
+@keyframes firefly {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  10%  { opacity: 1; }
+  50%  { transform: translate(var(--dx, 30px), var(--dy, -20px)); opacity: 0.8; }
+  90%  { opacity: 1; }
+  100% { transform: translate(0, 0); opacity: 0; }
+}
+.firefly {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: #fde68a;
+  box-shadow: 0 0 8px 2px rgba(253, 230, 138, 0.9), 0 0 18px 4px rgba(253, 230, 138, 0.5);
+  animation: firefly var(--dur, 8s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  pointer-events: none;
+}
+
+/* ---------- Cloud drift ---------- */
+@keyframes drift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(40px); }
+}
+.cloud-drift {
+  animation: drift 12s ease-in-out infinite alternate;
+}
+
+/* ---------- Reveal caption ---------- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  opacity: 0;
+  animation: fadeUp 1.6s ease-out forwards;
+  animation-delay: var(--delay, 1s);
+}
+
+/* ---------- Subtle grass sway ---------- */
+@keyframes sway {
+  0%, 100% { transform: skewX(-2deg); }
+  50%      { transform: skewX(2deg); }
+}
+.grass-sway {
+  transform-origin: bottom center;
+  animation: sway 5s ease-in-out infinite;
+}
+
+/* Button hover */
+.btn-ghost {
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+}
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
+}
